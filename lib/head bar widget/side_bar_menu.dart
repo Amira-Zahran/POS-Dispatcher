@@ -53,15 +53,17 @@ class _Side_barState extends State<Side_bar> {
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
+                          print(currentOrder.id);
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=> home_page()));
+                          currentOrder = Orders(id: 0);
+                          print(currentOrder.id);
                           setState(() {
                             print(currentOrder.id);
                             activeButton = 1;
                             widget.onItemSelected!(1);
                             hidden.value = true;
                             hidden.notifyListeners();
-                            currentOrder = Orders(id: 0);
-                            print(currentOrder.id);
+
                           });
                         },
                         child: Text(
@@ -96,13 +98,15 @@ class _Side_barState extends State<Side_bar> {
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
+                          print(currentOrder.id);
                           // Navigator.push(context, MaterialPageRoute(builder: (context)=> on_the_way_orders()));
+                          currentOrder = Orders(id: 0);
                           setState(() {
                             activeButton = 2;
                             widget.onItemSelected!(2);
                             hidden.value = true;
                             hidden.notifyListeners();
-                            currentOrder = Orders(id: 0);
+
                           });
                         },
                         child: Text(

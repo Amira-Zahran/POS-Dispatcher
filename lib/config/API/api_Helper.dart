@@ -15,7 +15,7 @@ class API{
 
   static final acceptOrder = DispatcherRoute+'acceptOrder';
 
-  static final updateStatus = DispatcherRoute+'updateStatus';
+  static final updateStatus = OrderRoute +'updateStatus';
 
   static final history = OrderRoute+'history';
 

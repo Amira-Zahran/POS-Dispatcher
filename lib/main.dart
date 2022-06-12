@@ -9,7 +9,7 @@ import 'models/Three_Partions/home_page.dart';
 void main(List<String> arguments) {
   HttpOverrides.global = new DevHttpOverrides();
   print(arguments);
-  bLoC.login('osharif','123456789');
+  bLoC.login('omarr','123456789');
 
 }
 

@@ -217,8 +217,6 @@ class _BarState extends State<Bar> {
                                 color: Config.ButtonColor)))),
               ),
             ),
-
-
             SizedBox(
               width: 30,
             ),
@@ -257,7 +255,44 @@ class _BarState extends State<Bar> {
                                 color: Config.ButtonColor)))),
               ),
             ),
+            /*SizedBox(
+              width: 30,
+            ),
 
+            SizedBox(
+              width:120,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=> Doneorders()));
+                  setState(() {
+                    widget.onFilter(3);
+                    activeButton = 3;
+                  });
+                },
+                child: Text(
+                  'Done',
+                  style: TextStyle(
+                      fontFamily: 'Cairo_Regular',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: (activeButton == 3
+                          ? Config.BarColor
+                          : Config.ButtonColor)),
+                ),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all((
+                        activeButton == 3
+                            ? Config.ButtonColor
+                            : Config.BarColor)),
+                    shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(15)),
+                            side: BorderSide(
+                                color: Config.ButtonColor)))),
+              ),
+            ),*/
             Expanded(child:   Text("Dispatcher",
               textDirection: TextDirection.rtl,
               style: TextStyle(

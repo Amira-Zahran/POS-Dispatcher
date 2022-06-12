@@ -59,7 +59,7 @@ class _Home_PageState extends State<Home_Page> {
 
 
             //Mian Body
-            ItemSelected == 3 ? Container(width:MediaQuery.of(context).size.width-280,height: MediaQuery.of(context).size.height,child: HistoryPage()): Expanded(
+            ItemSelected == 3 ? Container(width:MediaQuery.of(context).size.width-261.2,height: MediaQuery.of(context).size.height,child: HistoryPage()): Expanded(
                 flex: 4,
                 child: Container(
                   child: orders_page(filter: ItemSelected),

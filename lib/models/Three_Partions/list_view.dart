@@ -25,7 +25,7 @@ class _ListviewState extends State<Listview> {
 
   ScrollController sideBar = ScrollController();
 
-  int activeButton = 0;
+  // int activeButton = 0;
   final ScrollController controllerOne = ScrollController();
   final ScrollController controllerTwo = ScrollController();
 
@@ -45,11 +45,11 @@ class _ListviewState extends State<Listview> {
           backgroundColor: const Color.fromRGBO(249, 183, 0, 1),
           body: GestureDetector(
             onTap: (){
-              activeButton = 0;
+              // activeButton = 0;
+              currentOrder = Orders(id: 0);
               print('clicked');
               setState(() {
                 hidden.value = true;
-
               });
             },
             child: SizedBox(
@@ -129,13 +129,13 @@ class _ListviewState extends State<Listview> {
                         currentOrder = e;
                         setState(() {
                           currentOrder = e;
-                          activeButton = e.id!;
+                          // activeButton = e.id!;
                           hidden.value = false;
                         });
                       },
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              Color(activeButton == e.id!
+                              Color(currentOrder.id == e.id!
                                   ? Config.yellowColor
                                   : Config.darkColor)),
                           shape: MaterialStateProperty.all(
@@ -156,7 +156,7 @@ class _ListviewState extends State<Listview> {
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: 'Cairo_Regular',
-                                  color: Color(activeButton == e.id!
+                                  color: Color(currentOrder.id == e.id!
                                       ? Config.darkColor
                                       : Config.yellowColor),
                                   fontWeight: FontWeight.bold,
@@ -235,14 +235,15 @@ class _ListviewState extends State<Listview> {
                         part3();
                         currentOrder = e;
                         setState(() {
-                          activeButton = e.id!;
+                          currentOrder = e;
+                          // activeButton = e.id!;
                           hidden.value = false;
                         });
                       },
                       style: ButtonStyle(
                           backgroundColor:
                           MaterialStateProperty.all(Color(
-                              activeButton == e.id!
+                              currentOrder.id == e.id!
                                   ? Config.yellowColor
                                   : Config.darkColor)),
                           shape: MaterialStateProperty.all(
@@ -264,7 +265,7 @@ class _ListviewState extends State<Listview> {
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: 'Cairo_Regular',
-                                  color: Color(activeButton == e.id!
+                                  color: Color(currentOrder.id == e.id!
                                       ? Config.darkColor
                                       : Config.yellowColor),
                                   fontWeight: FontWeight.bold,
@@ -319,358 +320,377 @@ class _ListviewState extends State<Listview> {
           body: Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: Center(
-              child: StreamBuilder<UnmodifiableListView<Orders>>(
-                  stream: bLoC.OrdersStream,
-                  initialData: UnmodifiableListView<Orders>([]),
-                  builder: (context, snapshot) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Order ID: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  '${currentOrder.orderId}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Cus-name: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  currentOrder.customer?.name ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Number: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  currentOrder.customer?.phones![0]
-                                      .phoneNumber ??
-                                      '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Delivery-fee: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  '${double.parse(currentOrder.total!) -
-                                      double.parse(
-                                          currentOrder.subtotal!)}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Total: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  currentOrder.total.toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Date: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  currentOrder.date ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  'Time: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        14, 35, 46, 1),
-                                  ),
-                                ),
-                                Text(
-                                  '${currentOrder.id != 0
-                                      ? daysBetween(DateTime.parse(
-                                      currentOrder.date!),
-                                      DateTime.parse(
-                                          currentOrder.updated_at!))
-                                      : ''}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22,
-                                    fontFamily: 'Cairo_Regular',
-                                    color: Color.fromRGBO(
-                                        249, 183, 0, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+              child: AnimatedSwitcher(
+                duration: const Duration(
+                    milliseconds: 500), // animation duration
+                transitionBuilder:
+                    (Widget child, Animation<double> animation) {
+                  var tween = Tween<Offset>(
+                    begin: const Offset(2, 0),
+                    end: const Offset(0, 0),
+                  );
 
-                          // ignore: unnecessary_null_comparison
-                          currentOrder != null ? (currentOrder.status == 'Ready' ? SafeArea(
-                            child: StreamBuilder<UnmodifiableListView<Agents>>(
-                                stream: bLoC.AgentsStream,
-                                initialData: UnmodifiableListView<Agents>([]),
-                                builder: (context, snapshot) {
-                                  // print(snapshot.data![1].name);
-                                  return Padding(
-                                    padding: const EdgeInsets.all(15),
-                                    child: DropdownButton(
-                                      dropdownColor: Colors.white, iconSize: 30,
-                                      hint: Text('Select Delivery Man',
-                                        style: TextStyle(color: Color(Config.darkColor),
-                                            fontFamily: 'Cairo_Regular',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      items: snapshot.data!.map((e) => DropdownMenuItem(value: e.id,
-                                        child: Text(e.name!,
-                                          style: TextStyle(color: Config.BarColor,
+                  return SlideTransition(
+                    child: child,
+                    position: tween.animate(animation),
+                  );
+                },
+                // switches between 2 widgets based on condition
+                child: hidden.value
+                    ? SizedBox()
+                    :  StreamBuilder<UnmodifiableListView<Orders>>(
+                    stream: bLoC.OrdersStream,
+                    initialData: UnmodifiableListView<Orders>([]),
+                    builder: (context, snapshot) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Order ID: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${currentOrder.orderId}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Cus-name: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    currentOrder.customer?.name ?? '',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Number: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    currentOrder.customer?.phones![0]
+                                        .phoneNumber ??
+                                        '',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Delivery-fee: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${double.parse(currentOrder.total!) -
+                                        double.parse(
+                                            currentOrder.subtotal!)}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Total: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    currentOrder.total.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Date: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    currentOrder.date ?? '',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Time: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          14, 35, 46, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${currentOrder.id != 0
+                                        ? daysBetween(DateTime.parse(
+                                        currentOrder.date!),
+                                        DateTime.parse(
+                                            currentOrder.updated_at!))
+                                        : ''}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 22,
+                                      fontFamily: 'Cairo_Regular',
+                                      color: Color.fromRGBO(
+                                          249, 183, 0, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // ignore: unnecessary_null_comparison
+                            currentOrder != null ? (currentOrder.status == 'Ready' ? SafeArea(
+                              child: StreamBuilder<UnmodifiableListView<Agents>>(
+                                  stream: bLoC.AgentsStream,
+                                  initialData: UnmodifiableListView<Agents>([]),
+                                  builder: (context, snapshot) {
+                                    // print(snapshot.data![1].name);
+                                    return Padding(
+                                      padding: const EdgeInsets.all(15),
+                                      child: DropdownButton(
+                                        dropdownColor: Colors.white, iconSize: 30,
+                                        hint: Text('Select Delivery Man',
+                                          style: TextStyle(color: Color(Config.darkColor),
                                               fontFamily: 'Cairo_Regular',
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),),)).toList(),
-                                      onChanged: (int? theName) {
-                                        // print(theName!.name);
-                                        setState(() {
-                                          selectedName = theName;
-                                          // print(selectedName!.name);
-                                        });
-                                      },
-                                      value: selectedName,
-                                    ),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        items: snapshot.data!.map((e) => DropdownMenuItem(value: e.id,
+                                          child: Text(e.name!,
+                                            style: TextStyle(color: Config.BarColor,
+                                                fontFamily: 'Cairo_Regular',
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),),)).toList(),
+                                        onChanged: (int? theName) {
+                                          // print(theName!.name);
+                                          setState(() {
+                                            selectedName = theName;
+                                            // print(selectedName!.name);
+                                          });
+                                        },
+                                        value: selectedName,
+                                      ),
 
-                                  );
-                                }
-                            ),
-                          ) : const Text('')) : const Text(''),
+                                    );
+                                  }
+                              ),
+                            ) : const Text('')) : const Text(''),
 
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                button(),
-                                /*click here with order number*/
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15 ),
-                                  child: SizedBox(
-                                    width: 400,
-                                    child: DataTable(
-                                        decoration: BoxDecoration(color: const Color(Config.darkColor),borderRadius: BorderRadius.circular(10)),
-                                        columns: const [
-                                          DataColumn(
-                                            label: Center(
-                                              child: Text(
-                                                'Item',
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Cairo_Regular',
-                                                  color: Color(Config.yellowColor),
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  button(),
+                                  /*click here with order number*/
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 15 ),
+                                    child: SizedBox(
+                                      width: 400,
+                                      child: DataTable(
+                                          decoration: BoxDecoration(color: const Color(Config.darkColor),borderRadius: BorderRadius.circular(10)),
+                                          columns: const [
+                                            DataColumn(
+                                              label: Center(
+                                                child: Text(
+                                                  'Item',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Cairo_Regular',
+                                                    color: Color(Config.yellowColor),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          DataColumn(
-                                            label: Center(
-                                              child: Text(
-                                                'Quantaty',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Cairo_Regular',
-                                                  fontSize: 15,
-                                                  color: Color(Config.yellowColor),
+                                            DataColumn(
+                                              label: Center(
+                                                child: Text(
+                                                  'Quantaty',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Cairo_Regular',
+                                                    fontSize: 15,
+                                                    color: Color(Config.yellowColor),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          DataColumn(
-                                            label: Center(
-                                              child: Text(
-                                                'Note',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Cairo_Regular',
-                                                  fontSize: 15,
-                                                  color: Color(Config.yellowColor),
+                                            DataColumn(
+                                              label: Center(
+                                                child: Text(
+                                                  'Note',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Cairo_Regular',
+                                                    fontSize: 15,
+                                                    color: Color(Config.yellowColor),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                        rows: currentOrder.items != null ?
-                                        currentOrder.items!.map((e) => DataRow(cells: [
-                                          DataCell(
-                                            Center(
-                                              child: Text(
-                                                e.itemName!,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Cairo_Regular',
-                                                  fontSize: 15,
-                                                  color: Color(0xffF9B700),
+                                          ],
+                                          rows: currentOrder.items != null ?
+                                          currentOrder.items!.map((e) => DataRow(cells: [
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  e.itemName!,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Cairo_Regular',
+                                                    fontSize: 15,
+                                                    color: Color(0xffF9B700),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          DataCell(
-                                            Center(
-                                              child: Text(
-                                                '${e.quantity}',
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Cairo_Regular',
-                                                  fontSize: 15,
-                                                  color: Color(0xffF9B700),
+                                            DataCell(
+                                              Center(
+                                                child: Text(
+                                                  '${e.quantity}',
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Cairo_Regular',
+                                                    fontSize: 15,
+                                                    color: Color(0xffF9B700),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          DataCell(
-                                            Center(
-                                              child: Text(e.comment!,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Cairo_Regular',
-                                                  fontSize: 15,
-                                                  color: Color(0xffF9B700),
+                                            DataCell(
+                                              Center(
+                                                child: Text(e.comment!,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Cairo_Regular',
+                                                    fontSize: 15,
+                                                    color: Color(0xffF9B700),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ])).toList() :
-                                        []
+                                          ])).toList() :
+                                          []
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+                          ],
+                        ),
+                      );
+                    }),
+              ),
             ),
           ),
         );
@@ -696,7 +716,7 @@ class _ListviewState extends State<Listview> {
                   ))),
               onPressed: () {
                 setState(() {
-                  activeButton = currentOrder.id!;
+                  // activeButton = currentOrder.id!;
                   bLoC.acceptOrder(currentOrder.id!);
                 });
               },
@@ -760,7 +780,7 @@ class _ListviewState extends State<Listview> {
               onPressed: () {
                 bLoC.updateOrderState(id: currentOrder.id!,status: 'Done');
                 setState(() {
-                  activeButton = currentOrder.id!;
+                  // activeButton = currentOrder.id!;
                   // bLoC.(currentOrder.id!);
                 });
               },
@@ -853,7 +873,7 @@ class _ListviewState extends State<Listview> {
       case 2:
         return 'Preparing';
       case 3:
-        return 'Done';
+        return 'Ready';
       default:
         return '';
     }

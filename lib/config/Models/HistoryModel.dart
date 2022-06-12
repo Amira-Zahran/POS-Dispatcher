@@ -1,19 +1,19 @@
-class HistoryModel {
+class ModelHistory {
   List<Operations>? operations;
 
-  HistoryModel({this.operations});
+  ModelHistory({this.operations});
 
-  HistoryModel.fromJson(Map<String, dynamic> json) {
+  ModelHistory.fromJson(Map<String, dynamic> json) {
     if (json['operations'] != null) {
       operations = <Operations>[];
       json['operations'].forEach((v) {
-        operations!.add(Operations.fromJson(v));
+        operations!.add(new Operations.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.operations != null) {
       data['operations'] = this.operations!.map((v) => v.toJson()).toList();
     }
@@ -68,7 +68,7 @@ class Operations {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['accepting_date'] = this.acceptingDate;
     data['adding_time'] = this.addingTime;
     data['agent_name'] = this.agentName;

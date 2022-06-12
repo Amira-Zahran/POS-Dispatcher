@@ -21,7 +21,7 @@ class _HistoryPageState extends State<HistoryPage> {
   int ItemSelected = 3;
 
   Operations currentOrder = Operations();
-  String change = 'None';
+  String change = 'Delivery';
 
 
   ScrollController controller = ScrollController();
