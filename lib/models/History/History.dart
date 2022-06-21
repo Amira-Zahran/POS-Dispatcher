@@ -73,11 +73,6 @@ class _HistoryPageState extends State<HistoryPage> {
                                   _dateTime = DateTime.now();
                                 });
                               }
-                              setState(() {
-                                SizedBox(width: 100,
-                                    height: 100,
-                                    child: Calend());
-                              });
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty
