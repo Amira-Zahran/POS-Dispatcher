@@ -27,6 +27,7 @@ class _HistoryPageState extends State<HistoryPage> {
   ScrollController controller = ScrollController();
   TextEditingController SearchCTRL = TextEditingController();
 
+  DateTime _dateTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,14 @@ class _HistoryPageState extends State<HistoryPage> {
                             fontSize: 25,),),
 
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              DateTime? _newDate = await showDatePicker(context: context, initialDate: _dateTime, firstDate: DateTime(2019), lastDate: DateTime(3000));
+                              if (_newDate != null){
+                                setState((){
+                                  _dateTime = _newDate;
+                                  _dateTime = DateTime.now();
+                                });
+                              }
                               setState(() {
                                 SizedBox(width: 100,
                                     height: 100,
@@ -82,6 +90,40 @@ class _HistoryPageState extends State<HistoryPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 12,),),
                           ),
+/*
+                          StreamBuilder<UnmodifiableListView<Operations>>(
+                              stream: bLoC.HistoryStream,
+                              initialData: UnmodifiableListView<Operations>([]),
+                              builder: (context, snapshot) {
+                                return ElevatedButton(
+                                    onPressed: () async {
+                                      DateTime? _newDate = await showDatePicker(context: context, initialDate: _dateTime, firstDate: DateTime(2019), lastDate: DateTime(3000));
+                                      if (_newDate != null){
+                                        setState((){
+                                          _dateTime = _newDate;
+                                          //_dateTime = snapshot.data!.where((element) => element.acceptingDate == _dateTime) as DateTime;
+                                          _dateTime = DateTime.now();
+                                        });
+                                      }
+                                      */
+/*setState(() {
+                                  SizedBox(width: 100,
+                                      height: 100,
+                                      child: Calend());
+                                });*//*
+
+                                    },
+                                    style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty
+                                            .all(Colors.white70)),
+                                    child: Text('${now.year}:${now.month}:${now
+                                        .day}  ${now.hour}:${now.minute}:${now
+                                        .second}', style: const TextStyle(
+                                      color: Color(Config.darkColor),
+                                      fontFamily: "Cairo_Regular",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,)));}),
+*/
                         ],
                       ),
 
@@ -322,7 +364,8 @@ class _HistoryPageState extends State<HistoryPage> {
                                     ),
                                   ],
                                   //((element.type == 'Delivery' && (SearchCTRL.text.isNotEmpty ? element.orderId == int.tryParse(SearchCTRL.text) : element.type!.contains(''))) && (change == 1)) || ((element.type == 'DeliveryTakeAway' &&  (SearchCTRL.text.isNotEmpty ?element.orderId == int.tryParse(SearchCTRL.text) : element.type!.contains(''))) || (SearchCTRL.text.isNotEmpty ?element.orderId == int.tryParse(SearchCTRL.text) : element.type!.contains('')) && (change == 2))
-                                  rows: snapshot.data!.where((element) => element.type == change && (SearchCTRL.text.isNotEmpty ? element.orderId == int.tryParse(SearchCTRL.text) : ''=='')).map((e) =>
+                                  // ignore: unnecessary_null_comparison
+                                  rows: snapshot.data!.where((element) => element.type == change && (SearchCTRL.text.isNotEmpty ? element.orderId == int.tryParse(SearchCTRL.text) : ''=='') || (_dateTime != null ? _dateTime == element.acceptingDate : _dateTime == DateTime.now())).map((e) =>
                                       DataRow( cells: [
                                         DataCell(
                                           Center(
