@@ -4,6 +4,7 @@ import 'package:pos_final/config/Important/Imports.dart';
 
 import '../config/Important/HiddenGlobal.dart';
 import '../config/Models/orderModel.dart';
+import '../models/Three_Partions/list_view.dart';
 
 class Side_bar extends StatefulWidget implements PreferredSizeWidget{
 
@@ -174,6 +175,29 @@ class _Side_barState extends State<Side_bar> {
                                         color: Config.ButtonColor)))),
                       ),
                     ),
+                    SizedBox(height: 60,),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all((
+                              activeButton == 4
+                                  ? Config.ButtonColor
+                                  : Config.BarColor)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                                  side: BorderSide(
+                                      color: Config.ButtonColor)))),
+                        onPressed: (){
+                        
+                        }, child: Text('Log Out',
+                      style: TextStyle(
+                        fontFamily: 'Cairo_Regular',
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: (activeButton == 4
+                            ? Config.BarColor
+                            : Config.ButtonColor)),)),
                     SizedBox(
                       height: 60,
                     ),
